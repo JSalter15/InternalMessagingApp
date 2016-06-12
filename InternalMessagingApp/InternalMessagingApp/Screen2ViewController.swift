@@ -8,12 +8,24 @@
 
 import UIKit
 
-class Screen2ViewController: UIViewController {
+class Screen2ViewController: UIViewController, MessagingProtocol {
 
+    @IBOutlet weak var textField2: UITextField!
+    @IBOutlet weak var label2: UILabel!
+    
+    var delegate2: MessagingProtocol?
+    var newMessage = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        label2.text = newMessage
+    }
 
-        // Do any additional setup after loading the view.
+    func changeLabel(message: String) {
+        newMessage = message
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,15 +33,9 @@ class Screen2ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func goToScreen1(sender: UIButton) {
+        delegate2?.changeLabel(textField2.text!)
+        
+        navigationController?.popViewControllerAnimated(true)
     }
-    */
-
 }

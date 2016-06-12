@@ -12,11 +12,28 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    var navigationController:UINavigationController?
+    let s1vc = Screen1ViewController(nibName: "Screen1ViewController", bundle: nil)
+    let s2vc = Screen2ViewController(nibName: "Screen2ViewController", bundle: nil)
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        navigationController = UINavigationController(rootViewController: s1vc)
+        
+        s1vc.delegate1 = s2vc
+        s2vc.delegate2 = s1vc
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.rootViewController = self.navigationController
+        navigationController?.navigationBarHidden = true
+        self.window?.makeKeyAndVisible()
+        
         return true
+    }
+    
+    func pushScreen2() {
+        navigationController?.pushViewController(s2vc, animated: true)
     }
 
     func applicationWillResignActive(application: UIApplication) {

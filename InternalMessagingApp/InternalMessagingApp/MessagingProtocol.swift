@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+protocol MessagingProtocol {
+    func changeLabel(message: String)
+}
